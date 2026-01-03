@@ -42,6 +42,41 @@ def main():
     print(f"  Non-prime numbers between 1 and 20: {non_primes}")
     print()
 
+    # Test Desktop Cleaner feature
+    print("Testing Desktop Cleaner feature:")
+    print("  Creating demo desktop environment...")
+    with tempfile.TemporaryDirectory() as temp_dir:
+        temp_path = Path(temp_dir)
+
+        # Create sample files
+        (temp_path / "document.pdf").touch()
+        (temp_path / "photo.jpg").touch()
+        (temp_path / "song.mp3").touch()
+        (temp_path / "video.mp4").touch()
+        (temp_path / "readme.txt").touch()
+
+        # Initialize cleaner
+        cleaner = DesktopCleaner(temp_dir)
+
+        # Show organization preview
+        print("\n  File Organization Preview (Dry Run):")
+        organized = cleaner.organize_files(dry_run=True)
+        for category, files in sorted(organized.items()):
+            print(f"    {category}: {len(files)} file(s) - {files}")
+
+        # Get and display statistics
+        print("\n  Desktop Statistics:")
+        stats = cleaner.get_desktop_stats()
+        print(f"    Total Files: {stats['total_files']}")
+        print(f"    Total Size: {DesktopCleaner._format_size(stats['total_size_bytes'])}")
+
+        # Show cleanup report
+        print("\n  Cleanup Report:")
+        report = cleaner.generate_cleanup_report()
+        for line in report.split('\n')[:10]:  # First 10 lines
+            print(f"    {line}")
+    print()
+
     print("=" * 50)
     print("Demo completed successfully!")
     print("=" * 50)
