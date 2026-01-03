@@ -1,6 +1,6 @@
 """Main application entry point"""
 
-from demo_app import greet, add_numbers, multiply_numbers
+from demo_app import greet, add_numbers, multiply_numbers, is_prime, get_non_primes
 
 
 def main():
@@ -26,6 +26,20 @@ def main():
     print("Testing multiply_numbers function:")
     result = multiply_numbers(5, 6)
     print(f"  5 × 6 = {result}")
+    print()
+
+    # Test is_prime function
+    print("Testing is_prime function:")
+    test_numbers = [2, 9, 17, 20, 23]
+    for num in test_numbers:
+        prime_status = "prime" if is_prime(num) else "not prime"
+        print(f"  {num} is {prime_status}")
+    print()
+
+    # Test get_non_primes function
+    print("Testing get_non_primes function:")
+    non_primes = get_non_primes(1, 20)
+    print(f"  Non-prime numbers between 1 and 20: {non_primes}")
     print()
 
     print("=" * 50)
